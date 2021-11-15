@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:calculator_app/utils/hexcolor.dart';
 import 'package:flutter/material.dart';
 
 class BillSplitter extends StatefulWidget {
@@ -11,6 +14,9 @@ class _BillSplitterState extends State<BillSplitter> {
   int _tipPercentage = 0;
   int _personCounter = 1;
   double _billAmount = 0.0;
+
+  Color _purple = HexColor("#6908d6");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +32,7 @@ class _BillSplitterState extends State<BillSplitter> {
               height: 150,
               width: 150,
               decoration: BoxDecoration(
-                color: Colors.purpleAccent.shade100,
+                color: _purple.withOpacity(0.1), //Colors.purpleAccent.shade100,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
@@ -54,7 +60,7 @@ class _BillSplitterState extends State<BillSplitter> {
                   TextField(
                     keyboardType:
                         TextInputType.numberWithOptions(decimal: true),
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(color: _purple),
                     decoration: InputDecoration(
                       prefixText: "Bill Amount",
                       prefixIcon: Icon(Icons.attach_money),
@@ -79,6 +85,98 @@ class _BillSplitterState extends State<BillSplitter> {
                   //     prefixIcon: Icon(Icons.access_alarm),
                   //   ),
                   // ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Split",
+                          style: TextStyle(color: Colors.grey.shade700)),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                if (_personCounter > 1) {
+                                  _personCounter--;
+                                } else {
+                                  // do nothing
+                                }
+                              });
+                            },
+                            child: Container(
+                              width: 40.0,
+                              height: 40.0,
+                              margin: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7),
+                                color: _purple.withOpacity(0.1),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "-",
+                                  style: TextStyle(
+                                      color: _purple,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            "$_personCounter",
+                            style: TextStyle(
+                              color: _purple,
+                              fontSize: 17.0,
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                _personCounter++;
+                              });
+                            },
+                            child: Container(
+                              width: 40.0,
+                              height: 40.0,
+                              margin: EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                  color: _purple.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(7.0)),
+                              child: Center(
+                                child: Text(
+                                  "+",
+                                  style: TextStyle(
+                                    color: _purple,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Tip",
+                        style: TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.w300),
+                      ),
+                      Row(
+                        children: [
+                          Center(
+                            child: Text(
+                              "50.00",
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
