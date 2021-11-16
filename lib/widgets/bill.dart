@@ -39,8 +39,23 @@ class _BillSplitterState extends State<BillSplitter> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Total Per Person"),
-                    Text("123"),
+                    Text(
+                      "Total Per Person",
+                      style: TextStyle(
+                          color: _purple,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.normal),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Text(
+                        "\$123",
+                        style: TextStyle(
+                            fontSize: 34.9,
+                            fontWeight: FontWeight.bold,
+                            color: _purple),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -167,14 +182,44 @@ class _BillSplitterState extends State<BillSplitter> {
                       Row(
                         children: [
                           Center(
-                            child: Text(
-                              "50.00",
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "\$50.00",
+                                style: TextStyle(
+                                  color: _purple,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                         ],
                       ),
+                    ],
+                  ),
+                  //Slider
+                  Column(
+                    children: [
+                      Text(
+                        "$_tipPercentage%",
+                        style: TextStyle(
+                            color: _purple,
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Slider(
+                          min: 0,
+                          max: 100,
+                          activeColor: _purple,
+                          inactiveColor: Colors.grey,
+                          divisions: 10,
+                          value: _tipPercentage.toDouble(),
+                          onChanged: (double newValue) {
+                            setState(() {
+                              _tipPercentage = newValue.round();
+                            });
+                          })
                     ],
                   ),
                 ],
